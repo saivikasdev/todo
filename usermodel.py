@@ -48,11 +48,17 @@ def createuser():
         password = request.form['password']
         role =request.form['role']
         address = request.form['address']
-
+        id = db.Column(db.Integer, primary_key = True)
+        created_at = db.Column(DateTime, default=datetime.datetime.utcnow)
+        updated_at = db.Column(DateTime, default=datetime.datetime.utcnow)
+        created_by = db.Column(db.Integer)
+        updated_by = db.Column(db.Integer)
+        is_active = db.Column(Boolean)
+        is_deleted = db.Column(Boolean)
         user_data = User(first_name,last_name,email,phone,password,role,address)
         db.session.add(user_data)
         db.session.commit()
-
+     
         flash("Employee Inserted Successfully")
 
        # return redirect(url_for('Index'))
