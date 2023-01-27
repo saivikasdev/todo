@@ -20,13 +20,12 @@ class User(db.Model):
     email = db.Column(db.String(100))
     phone = db.Column(db.String(100))
     password = db.Column(db.String(100))
-    address = db.Column(db.String(100))
     role =db.Column(db.String(100))
+    address = db.Column(db.String(100))
 
 
-    def __init__(self, id, first_name, last_name,email,phone,password,address,role):
+    def __init__(self, first_name, last_name,email,phone,password,role,address):
 
-        self.id = id
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
@@ -34,3 +33,30 @@ class User(db.Model):
         self.password = password
         self.role = role
         self.address = address
+
+users= User.query.all()
+
+@app.route('/createuser', methods = ['GET','POST'])
+def createuser():
+
+    if request.method == 'POST':
+
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        email =request.form['email']
+        phone = request.form['phone']
+        password = request.form['password']
+        role =request.form['role']
+        address = request.form['address']
+
+        user_data = User(first_name,last_name,email,phone,password,role,address)
+        db.session.add(user_data)
+        db.session.commit()
+
+        flash("Employee Inserted Successfully")
+
+       # return redirect(url_for('Index'))
+    return render_template("user_form.html",users=users)
+
+if __name__ == "__main__":
+    app.run(debug=True)

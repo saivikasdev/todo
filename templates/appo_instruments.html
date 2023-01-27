@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=
+    <div id="mymodal" class="modal fade" role="dialog">
+       <div class="modal-dialog">
+          <div class="modal-content">
+             <div class="modal-header">
+    
+                <h4 class="modal-title">appo_instruments model</h4>
+             </div>
+             <div class="modal-body">
+    
+                <form action="{{url_for('appo_instruments')}}" method="POST">
+    
+    
+                   <div class="form-group">
+    
+                      <label>appointment_id:</label>
+                      <input type="text" class="form-control" name="appointment_id" required="1">
+    
+    
+                   </div>
+    
+    
+                    <div class="form-group">
+    
+    
+                      <label>instrument_id:</label>
+                      <input type="text" class="form-control" name="instrument_id" required="1">
+    
+    
+                   </div>
+    
+    
+                   <div class="form-group">
+    
+    
+                      <button class="btn btn-primary" type="submit">Add Employee</button>
+    
+    
+                   </div>
+    
+    
+                </form>
+    
+    
+             </div>
+             <table class="table table-hover table-dark">
+
+               <tr>
+
+                   <th>appointment_id</th>
+                   <th>instrument_id</th>
+
+               </tr>
+
+
+              {% for row in appo_instrument %}
+               <tr>
+                   <td>{{row.appointment_id}}</td>
+                   <td>{{row.instrument_id}}</td>
+
+
+               </tr>
+
+
+
+               {% endfor %}
+
+
+           </table>
+          </div>
+    
+    
+       </div>
+    
+    
+    </div>
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>

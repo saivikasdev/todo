@@ -31,12 +31,15 @@ class Data(db.Model):
 
 # This is the index route where we are going to
 # query on all our employee data
-@app.route('/')
+data = Data.query.all()
+print(data)
+
+
+@app.route('/') 
 def Index():
     all_data = Data.query.all()
 
     return render_template("index.html", employees = all_data)
-
 
 
 # this route is for inserting data to mysql database via html forms

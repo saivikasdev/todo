@@ -26,3 +26,32 @@ class instruments(db.Model):
         self.name = name
         self.image = image
         self.description = description
+
+
+
+
+
+
+Instruments= instruments.query.all()
+
+@app.route('/instrument', methods = ['GET','POST'])
+def instrument():
+
+    if request.method == 'POST':
+
+        name = request.form['name']
+        image =request.form['image']
+        description = request.form['description']
+
+
+        instrument_data = instruments(id,name,image,description)
+        db.session.add(instrument_data)
+        db.session.commit()
+
+        flash("Employee Inserted Successfully")
+
+       # return redirect(url_for('Index'))
+    return render_template("instrument.html",instrument=Instruments)
+
+if __name__ == "__main__":
+    app.run(debug=True)

@@ -32,3 +32,31 @@ class drugs(db.Model):
         self.unit = unit
         self.type = type
         self.tags = tags
+
+
+
+Drugs= drugs.query.all()
+
+@app.route('/drug', methods = ['GET','POST'])
+def drug():
+
+    if request.method == 'POST':
+
+        tradeName = request.form['tradeName']
+        genericName =request.form['genericName']
+        note = request.form['note']
+        unit = request.form['unit']
+        is_active =request.form['type']
+        is_deleted = request.form['tags']
+
+        drug_data = drugs(id,tradeName,genericName,note,unit,is_active,is_deleted)
+        db.session.add(drug_data)
+        db.session.commit()
+
+        flash("Employee Inserted Successfully")
+
+       # return redirect(url_for('Index'))
+    return render_template("drug_form.html",drug=Drugs)
+
+if __name__ == "__main__":
+    app.run(debug=True)

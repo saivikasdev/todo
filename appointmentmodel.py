@@ -22,10 +22,37 @@ class Appointment(db.Model):
     doctor_id = db.Column(db.String(100))
 
 
-    def __init__(self, id, start_time, end_time,patient__id,executive_id,doctor_id):
+    def __init__(self, id, start_time, end_time,patient_id,executive_id,doctor_id):
 
         self.start_time = start_time
         self.end_time = end_time
-        self.patient__id = patient__id
+        self.patient_id = patient_id
         self.executive_id = executive_id
         self.doctor_id = doctor_id
+
+
+        
+appos= Appointment.query.all()
+
+@app.route('/appo', methods = ['GET','POST'])
+def appo():
+
+    if request.method == 'POST':
+
+        start_time = request.form['start_time']
+        end_time = request.form['end_time']
+        patient_id =request.form['patient_id']
+        executive_id = request.form['executive_id']
+        doctor_id = request.form['doctor_id']
+
+        appo_data = Appointment(id,start_time,end_time,patient_id,executive_id,doctor_id)
+        db.session.add(appo_data)
+        db.session.commit()
+
+        flash("Employee Inserted Successfully")
+
+       # return redirect(url_for('Index'))
+    return render_template("appo_form.html",appo=appos)
+
+if __name__ == "__main__":
+    app.run(debug=True)
